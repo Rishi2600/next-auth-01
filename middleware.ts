@@ -10,7 +10,11 @@ export default withAuth(
             return NextResponse.rewrite(new URL("/Denied", req.url))
         }
     },
-    callbacks: 
+    {
+        callbacks: {
+            authorized: ({token}) => !!token
+        }
+    } 
 )
 
 export const config = {
