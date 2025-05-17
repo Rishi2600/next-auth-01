@@ -49,6 +49,7 @@ const useForm = () => {
           type="text"
           onChange={handleChange}
           required={true}
+          //@ts-ignore
           value={formData.name}
           className=""
         />
@@ -59,6 +60,7 @@ const useForm = () => {
           type="text"
           onChange={handleChange}
           required={true}
+          //@ts-ignore
           value={formData.email}
           className=""
         />
@@ -69,6 +71,7 @@ const useForm = () => {
           type="password"
           onChange={handleChange}
           required={true}
+          //@ts-ignore
           value={formData.password}
           className=""
         />

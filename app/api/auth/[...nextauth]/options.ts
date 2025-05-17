@@ -27,6 +27,7 @@ export const options = {
             }
         }),
         GithubProvider({
+            //@ts-ignore
             profile(profile) {
                 console.log(profile)
 
@@ -63,6 +64,7 @@ export const options = {
     /*using callbacks for role based authentication/access control in this particular use-Case, not necessary for normal use-case.*/
     callbacks: {
         /*for the server side.*/
+        //@ts-ignore
         async jwt({token, user}) {
             if(user) {
                 //@ts-ignore
@@ -72,6 +74,7 @@ export const options = {
         },
         /*for the client side --
         this is important because you want to pass the role from the JWT token to the session so you can access it in your application.*/
+        //@ts-ignore
         async session({token, session}) {
             if(session?.user) {
                 token.role = session.user.role as string
