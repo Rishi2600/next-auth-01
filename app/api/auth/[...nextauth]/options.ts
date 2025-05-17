@@ -1,6 +1,8 @@
+import UserModel from "@/app/(models)/User";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import bcrypt from "bcrypt"
 
 if(!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
     throw new Error("missing credentials from OAuth")
@@ -14,16 +16,28 @@ export const options = {
                 email: { label: "email", type: "text", placeholder: "Email" },
                 password: { label: "password", type: "password", placeholder: "Password" }
             },
+            //@ts-ignore
             async authorize(credentials) {
                 /*here the logic of the authentication will be added to look up for the user from the credentials supplied.*/
-                console.log(credentials);
-                const user = {id: "1", name: "user", email: "user@test.com"}
+                try {
+                    console.log(credentials);
 
-                if(user) {
-                    return user
-                } else{
-                    return null
+                    const foundUser = await UserModel.findOne({email: credentials?.email}).lean().exec()
+
+                    if(foundUser) {
+                        //@ts-ignore
+                        const match = await bcrypt.compare(credentials?.password, foundUser.password)
+
+                        if(match) {
+                            //@ts-ignore
+                            delete foundUser.password
+                            return foundUser
+                        }
+                    }
+                } catch(e) {
+                    console.log(e)
                 }
+                return null
             }
         }),
         GithubProvider({
