@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const useForm = () => {
+const UserForm = () => {
   const router = useRouter();
 
   const [formData, setFormData] = useState({});
@@ -86,4 +86,4 @@ const useForm = () => {
   );
 };
 
-export default useForm;
+export default UserForm;

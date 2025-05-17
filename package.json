@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "bcrypt": "^6.0.0",
     "mongodb": "^6.16.0",
     "mongoose": "^8.15.0",
