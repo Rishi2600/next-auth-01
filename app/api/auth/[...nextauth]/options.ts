@@ -3,12 +3,16 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "../../../../lib/db"
+
 
 if(!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
     throw new Error("missing credentials from OAuth")
 }
 
 export const options = {
+    adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             name: "Credentials",
